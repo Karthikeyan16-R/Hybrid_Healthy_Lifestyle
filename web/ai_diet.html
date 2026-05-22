@@ -1,0 +1,155 @@
+<body>
+
+<script>
+if (!localStorage.getItem("token")) {
+  window.location.href = "index.html";
+}
+</script>
+
+<!-- diet UI -->
+<script src="diet.js"></script>
+</body>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Diet Planner</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🥗 AI Diet Planner</h1>
+    <button class="logout-btn" id="logoutBtn">Logout</button>
+
+    <h2>Personalize Your Plan</h2>
+
+    <input type="number" id="age" placeholder="Age" />
+    <input type="number" id="weight" placeholder="Weight (kg)" />
+    <input type="number" id="height" placeholder="Height (cm)" />
+
+    <select id="gender">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+
+    <select id="activity">
+      <option value="sedentary">Sedentary</option>
+      <option value="light">Light</option>
+      <option value="moderate">Moderate</option>
+      <option value="active">Active</option>
+      <option value="very active">Very Active</option>
+    </select>
+
+    <select id="goal">
+      <option value="weight_loss">Weight Loss</option>
+      <option value="muscle_gain">Muscle Gain</option>
+      <option value="maintain">Maintain</option>
+      <option value="weight_gain">Weight Gain</option>
+    </select>
+
+    <input type="text" id="cuisine" placeholder="Cuisine (e.g., south_indian)" />
+
+    <button id="generateBtn">Generate Plan</button>
+
+    <div id="diet-result" style="display:none;">
+      <h3>🍴 Your Personalized Meal Plan</h3>
+      <div id="plan-output"></div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = "http://127.0.0.1:5050";
+    console.log(" diet.js loaded!");
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      console.log("Logout clicked");
+      localStorage.removeItem("token");
+      window.location.href = "index.html";
+    });
+
+    document.getElementById("generateBtn").addEventListener("click", async () => {
+      console.log("Generate Diet button clicked!");
+
+      const age = document.getElementById("age").value;
+      const weight = document.getElementById("weight").value;
+      const height = document.getElementById("height").value;
+      const gender = document.getElementById("gender").value;
+      const activity = document.getElementById("activity").value;
+      const goal = document.getElementById("goal").value;
+      const cuisine = document.getElementById("cuisine").value || null;
+
+      if (!age || !weight || !height) {
+        alert("Please fill all required fields!");
+        return;
+      }
+
+      const payload = {
+        age: parseInt(age),
+        weight: parseFloat(weight),
+        height: parseFloat(height),
+        gender,
+        activity_level: activity,
+        goal,
+        cuisine_preference: cuisine
+      };
+
+      console.log("Sending request:", payload);
+
+      try {
+  const res = await fetch(`${API_BASE}/ai/diet`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+
+  let data;
+  try {
+    data = await res.json();
+  } catch {
+    data = { message: "⚠️ Server did not return valid JSON." };
+  }
+
+  console.log("Response from backend:", data);
+
+  if (res.ok && data.success) {
+    alert("✅ Diet Plan Generated!");
+    displayDiet(data.plan);
+  } else {
+    alert(`⚠️ Failed: ${data.error || data.detail || data.message || "Backend error"}`);
+  }
+} catch (error) {
+  console.error("Frontend error:", error);
+  alert("🚨 Could not connect to backend. Make sure FastAPI is running on port 5050.");
+}
+
+    });
+
+    function displayDiet(plan) {
+      const resultDiv = document.getElementById("diet-result");
+      const output = document.getElementById("plan-output");
+
+      resultDiv.style.display = "block";
+
+      output.innerHTML = `
+        <h3>🎯 Daily Calorie Target: ${plan.daily_targets?.calories || "N/A"} kcal</h3>
+        <h4>Protein Target: ${plan.daily_targets?.protein || "N/A"} g</h4>
+        ${Object.entries(plan.meal_plan || {})
+          .map(([meal, details]) => `
+            <div class="meal-box">
+              <h3>${meal.toUpperCase()}</h3>
+              <p><strong>Target:</strong> ${details.target_calories} kcal | ${details.target_protein}g protein</p>
+              <ul>
+                ${details.foods.map(f => `
+                  <li>${f.name} — ${f.calories} kcal | P: ${f.protein}g | C: ${f.carbs}g | F: ${f.fat}g</li>
+                `).join("")}
+              </ul>
+            </div>
+          `).join("")}
+      `;
+    }
+  </script>
+</body>
+</html>

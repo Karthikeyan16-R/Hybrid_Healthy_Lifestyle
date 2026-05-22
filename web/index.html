@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Diet Planner - Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container auth">
+    <h1>🥗 AI Diet Planner</h1>
+
+    <div id="login-box" class="box active">
+      <h2>Login</h2>
+      <input type="email" id="login-email" placeholder="Email" required />
+      <input type="password" id="login-password" placeholder="Password" required />
+      <button onclick="login()">Login</button>
+      <p>Don't have an account? <a href="#" onclick="toggleForm('register')">Create one</a></p>
+    </div>
+
+    <div id="register-box" class="box">
+      <h2>Register</h2>
+      <input type="email" id="register-email" placeholder="Email" required />
+      <input type="password" id="register-password" placeholder="Password" required />
+      <input type="password" id="register-confirm" placeholder="Confirm Password" required />
+      <button onclick="register()">Create Account</button>
+      <p>Already have an account? <a href="#" onclick="toggleForm('login')">Login here</a></p>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = "http://127.0.0.1:5050";
+
+    function toggleForm(type) {
+      document.getElementById("login-box").classList.toggle("active", type === "login");
+      document.getElementById("register-box").classList.toggle("active", type === "register");
+    }
+
+    async function register() {
+      const email = document.getElementById("register-email").value;
+      const password = document.getElementById("register-password").value;
+      const confirm = document.getElementById("register-confirm").value;
+
+      if (!email || !password || !confirm) {
+        alert("Please fill all fields");
+        return;
+      }
+
+      if (password !== confirm) {
+        alert("Passwords do not match");
+        return;
+      }
+
+      const response = await fetch(`${API_BASE}/users/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, confirm_password: confirm }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert("Registration successful! You can now login.");
+        toggleForm("login");
+      } else {
+        alert(`❌ ${data.detail || data.message}`);
+      }
+    }
+
+    async function login() {
+      const email = document.getElementById("login-email").value;
+      const password = document.getElementById("login-password").value;
+
+      if (!email || !password) {
+        alert("Please fill all fields");
+        return;
+      }
+
+      const response = await fetch(`${API_BASE}/users/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+      if (response.ok && data.success) {
+        alert("Login successful!");
+        localStorage.setItem("token", data.token);
+        window.location.href = "home.html";
+      } else {
+        alert(`❌ Login failed: ${data.detail || data.message}`);
+      }
+    }
+  </script>
+</body>
+</html>

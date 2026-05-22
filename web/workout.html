@@ -1,0 +1,46 @@
+<body>
+
+<script>
+if (!localStorage.getItem("token")) {
+  window.location.href = "index.html";
+}
+</script>
+
+<!-- workout UI -->
+<script src="workout.js"></script>
+</body>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Workout Planner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>🏋️ AI Workout Planner</h1>
+
+  <input id="age" type="number" placeholder="Age" required>
+  <input id="height" type="number" placeholder="Height (cm)" required>
+  <input id="weight" type="number" placeholder="Weight (kg)" required>
+
+  <select id="activity_level">
+    <option value="low">Low</option>
+    <option value="medium">Medium</option>
+    <option value="high">High</option>
+  </select>
+
+  <input id="time_available" type="number" placeholder="Time available (minutes)" required>
+
+  <button onclick="generateWorkout()">Generate Workout</button>
+
+  <div id="workout-result"></div>
+
+  <button onclick="location.href='home.html'">⬅ Back</button>
+</div>
+
+<script src="workout.js"></script>
+</body>
+</html>

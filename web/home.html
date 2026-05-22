@@ -1,0 +1,67 @@
+<body>
+
+<script>
+if (!localStorage.getItem("token")) {
+  window.location.href = "index.html";
+}
+</script>
+
+<!-- dashboard UI below -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Health Companion</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1 class="center">AI Health Companion</h1>
+
+  <div class="dashboard">
+    <div class="card" onclick="openDiet()">
+      <h2>🥗 Diet Planner</h2>
+      <p>Personalized food plans</p>
+    </div>
+
+    <div class="card" onclick="openWorkout()">
+      <h2>🏋️ Workout Planner</h2>
+      <p>Personalized workouts</p>
+    </div>
+  </div>
+
+    <div class="card" onclick="location.href='chatbot.html'">
+      <h2>🤖 Health Chatbot</h2>
+      <p>Ask health & lifestyle questions</p>
+    </div>
+
+
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</div>
+
+<script>
+if(!localStorage.getItem("token")){
+  window.location.href = "index.html";
+}
+
+function openDiet(){
+  sessionStorage.setItem("nav","diet");
+  window.location.href = "ai_diet.html";
+}
+
+function openWorkout(){
+  sessionStorage.setItem("nav","workout");
+  window.location.href = "workout.html";
+}
+
+function logout(){
+  localStorage.removeItem("token");
+  sessionStorage.clear();
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,794 @@
+import React, { useState, useEffect } from 'react';
+import { Salad, Dumbbell, MessageCircle, Hospital, Trophy, Target, Zap, Heart, Activity, TrendingUp, Award, ArrowRight, Play, Star, Sparkles, Brain, Calendar, ChefHat, LineChart } from 'lucide-react';
+import API from "../app/api"
+import { useNavigate } from "react-router-dom";
+
+
+
+const UltimateHealthLanding = () => {
+    const navigate = useNavigate();
+  const [scrollY, setScrollY] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
+
+  // ✅ PASTE HERE (after states, before return)
+  const testBackend = async () => {
+    try {
+      const res = await API.get("/ping");
+      alert(res.data.message);
+    } catch (err) {
+      alert("Backend not connected");
+      console.error(err);
+    }
+  };
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    setActiveTab((prev) => (prev + 1) % heroImages.length);
+  }, 5000);
+
+  return () => clearInterval(interval);
+}, []);
+
+
+  const features = [
+    {
+      icon: <Salad className="w-12 h-12" />,
+      title: "AI Diet Planner",
+      desc: "Personalized meal plans based on your goals, allergies & preferences",
+      color: "from-green-400 to-emerald-600",
+      stat: "Smart Plans",
+      image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&h=400&fit=crop"
+    },
+    {
+      icon: <Dumbbell className="w-12 h-12" />,
+      title: "Smart Workouts",
+      desc: "Adaptive fitness routines powered by real-time data analysis",
+      color: "from-orange-400 to-red-600",
+      stat: "AI Powered",
+      image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=400&fit=crop"
+    },
+    {
+      icon: <MessageCircle className="w-12 h-12" />,
+      title: "Health Chatbot",
+      desc: "24/7 AI assistant for nutrition, fitness & lifestyle queries",
+      color: "from-blue-400 to-indigo-600",
+      stat: "Always On",
+      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop"
+    },
+    {
+      icon: <Hospital className="w-12 h-12" />,
+      title: "Hospital Finder",
+      desc: "Locate nearby verified hospitals & specialists instantly",
+      color: "from-pink-400 to-rose-600",
+      stat: "Instant Search",
+      image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&h=400&fit=crop"
+    },
+    {
+      icon: <Trophy className="w-12 h-12" />,
+      title: "30/60 Day Challenges",
+      desc: "Gamified fitness goals with rewards & community support",
+      color: "from-yellow-400 to-amber-600",
+      stat: "Get Motivated",
+      image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&h=400&fit=crop"
+    },
+    {
+      icon: <Activity className="w-12 h-12" />,
+      title: "Progress Analytics",
+      desc: "Track calories, macros, workouts & health metrics",
+      color: "from-purple-400 to-violet-600",
+      stat: "Real-time",
+      image: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e?w=600&h=400&fit=crop"
+    }
+  ];
+
+  const heroImages = [
+    "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&h=1000&fit=crop",
+    "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&h=1000&fit=crop",
+    "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=1000&fit=crop"
+  ];
+
+  const foodGallery = [
+    { img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&h=500&fit=crop", label: "Breakfast Bowl", cal: "420 cal" },
+    { img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&h=500&fit=crop", label: "Fresh Salad", cal: "280 cal" },
+    { img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=500&h=500&fit=crop", label: "Protein Bowl", cal: "520 cal" },
+    { img: "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?w=500&h=500&fit=crop", label: "Power Smoothie", cal: "310 cal" },
+    { img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&h=500&fit=crop", label: "Healthy Pizza", cal: "480 cal" },
+    { img: "https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?w=500&h=500&fit=crop", label: "Veggie Wrap", cal: "390 cal" },
+    { img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=500&h=500&fit=crop", label: "Pasta Delight", cal: "550 cal" },
+    { img: "https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=500&h=500&fit=crop", label: "Berry Parfait", cal: "260 cal" }
+  ];
+
+  const workoutGallery = [
+    { img: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&h=400&fit=crop", label: "Yoga & Flexibility" },
+    { img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&h=400&fit=crop", label: "HIIT Training" },
+    { img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=400&fit=crop", label: "Strength Building" },
+    { img: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600&h=400&fit=crop", label: "Cardio Sessions" }
+  ];
+
+  const lifestyleImages = [
+    { img: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=800&fit=crop", label: "Better Sleep" },
+    { img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=800&fit=crop", label: "Meditation" },
+    { img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=800&fit=crop", label: "Active Living" }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-hidden">
+      
+      {/* Animated Background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div 
+          className="absolute w-96 h-96 bg-purple-500/30 rounded-full blur-3xl -top-20 -left-20"
+          style={{ transform: `translateY(${scrollY * 0.5}px)` }}
+        />
+        <div 
+          className="absolute w-96 h-96 bg-blue-500/30 rounded-full blur-3xl top-40 right-0"
+          style={{ transform: `translateY(${scrollY * 0.3}px)` }}
+        />
+        <div 
+          className="absolute w-96 h-96 bg-pink-500/30 rounded-full blur-3xl bottom-0 left-1/2"
+          style={{ transform: `translateY(${-scrollY * 0.4}px)` }}
+        />
+      </div>
+
+      {/* Navbar */}
+      <nav className="relative z-50 px-6 py-4 backdrop-blur-md bg-white/5 border-b border-white/10">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-blue-500 rounded-lg flex items-center justify-center">
+              <Heart className="w-6 h-6" />
+            </div>
+            <span className="text-2xl font-bold bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
+              HealthAI
+            </span>
+          </div>
+          <div className="flex gap-4">
+            <button
+            onClick={() => navigate("/login")}
+            className="px-6 py-2 rounded-lg border border-white/20 hover:bg-white/10 transition-all">
+                Login
+                </button>
+
+            <button className="px-6 py-2 rounded-lg bg-gradient-to-r from-green-500 to-blue-500 hover:scale-105 transition-transform shadow-lg shadow-blue-500/50">
+              Get Started
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section - Full Width Image Background */}
+      <div className="relative z-10">
+        <div className="relative h-[800px] overflow-hidden">
+          {/* Hero Background Images Carousel */}
+          <div className="absolute inset-0">
+            {heroImages.map((img, i) => (
+              <img 
+                key={i}
+                src={img}
+                alt="Fitness hero"
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === activeTab ? 'opacity-100' : 'opacity-0'}`}
+              />
+            ))}
+            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+          </div>
+
+          {/* Hero Content */}
+          <div className="relative max-w-7xl mx-auto px-6 h-full flex items-center">
+            <div className={`max-w-2xl transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+              <div className="inline-block mb-6">
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-green-500/20 to-blue-500/20 border border-green-500/30 backdrop-blur-sm animate-pulse">
+                  <Sparkles className="w-4 h-4 text-yellow-400" />
+                  <span className="text-sm font-semibold">AI-Powered Health Revolution</span>
+                </div>
+              </div>
+              
+              <h1 className="text-6xl md:text-8xl font-black mb-6 leading-tight">
+                Transform
+                <br />
+                Your
+                <br />
+                <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+                  Lifestyle
+                </span>
+              </h1>
+              
+              <p className="text-2xl text-gray-200 mb-8 leading-relaxed">
+                Experience the future of health with AI-powered personalized diet plans, 
+                smart workouts, and 24/7 guidance
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                <button className="group px-10 py-5 bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl text-xl font-bold hover:scale-105 transition-all shadow-2xl shadow-blue-500/50 flex items-center justify-center gap-2">
+                  Start Free Trial
+                  <Target className="w-6 h-6 group-hover:rotate-90 transition-transform" />
+                </button>
+                <button className="px-10 py-5 border-2 border-white/30 rounded-2xl text-xl font-bold hover:bg-white/10 transition-all backdrop-blur-sm flex items-center justify-center gap-2">
+                  <Play className="w-6 h-6" />
+                  Watch Demo
+                </button>
+              </div>
+
+              <div className="flex items-center gap-8">
+                <div className="flex items-center gap-2">
+                  <Brain className="w-6 h-6 text-green-400" />
+                  <span className="text-gray-300">AI Powered</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Zap className="w-6 h-6 text-yellow-400" />
+                  <span className="text-gray-300">Instant Results</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Heart className="w-6 h-6 text-pink-400" />
+                  <span className="text-gray-300">Health First</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Features Grid with Stunning Photos */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-32">
+        <div className="text-center mb-20">
+          <div className="inline-block mb-4">
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30">
+              <Star className="w-4 h-4 text-yellow-400" />
+              <span className="text-sm font-semibold">Complete Health Ecosystem</span>
+            </div>
+          </div>
+          <h2 className="text-6xl md:text-7xl font-black mb-6">
+            Everything You Need
+            <br />
+            <span className="bg-gradient-to-r from-pink-400 via-purple-500 to-orange-500 bg-clip-text text-transparent">
+              In One Platform
+            </span>
+          </h2>
+          <p className="text-2xl text-gray-400">Six powerful AI tools working together for your success</p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature, i) => (
+            <div
+              key={i}
+              className="group relative rounded-3xl bg-slate-800/50 backdrop-blur-lg border-2 border-white/10 hover:scale-105 hover:shadow-2xl hover:border-white/30 transition-all duration-500 cursor-pointer overflow-hidden"
+            >
+              {/* Image Header */}
+              <div className="relative h-56 overflow-hidden">
+                <img 
+                  src={feature.image} 
+                  alt={feature.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className={`absolute inset-0 bg-gradient-to-t ${feature.color} opacity-50 group-hover:opacity-70 transition-opacity`} />
+                <div className={`absolute top-6 right-6 w-20 h-20 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center shadow-2xl group-hover:rotate-12 transition-transform duration-500`}>
+                  {feature.icon}
+                </div>
+              </div>
+              
+              <div className="p-8">
+                <h3 className="text-3xl font-bold mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-green-400 group-hover:to-blue-500 group-hover:bg-clip-text transition-all">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-300 text-lg mb-6 leading-relaxed">{feature.desc}</p>
+                
+                <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                  <span className="text-sm font-bold text-transparent bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text">{feature.stat}</span>
+                  <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-gradient-to-r group-hover:from-green-500 group-hover:to-blue-500 transition-all">
+                    <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Delicious Food Gallery - Expanded */}
+      <div className="relative z-10 bg-gradient-to-b from-transparent via-green-900/20 to-transparent py-32">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30">
+                <ChefHat className="w-4 h-4 text-green-400" />
+                <span className="text-sm font-semibold">AI Meal Planning</span>
+              </div>
+            </div>
+            <h2 className="text-6xl md:text-7xl font-black mb-6">
+              <span className="bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
+                Delicious & Nutritious
+              </span>
+            </h2>
+            <p className="text-2xl text-gray-400">AI-crafted meals that taste incredible and fuel your goals</p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {foodGallery.map((item, i) => (
+              <div key={i} className="relative rounded-3xl overflow-hidden group cursor-pointer h-80 border-2 border-white/10 hover:border-green-500/50 transition-all hover:scale-105 duration-500">
+                <img 
+                  src={item.img}
+                  alt={item.label}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300" />
+                <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                  <div className="font-bold text-xl mb-1">{item.label}</div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-green-400 font-semibold">{item.cal}</span>
+                    <span className="text-xs text-gray-300 bg-white/10 px-2 py-1 rounded-full backdrop-blur-sm">AI Optimized</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Workout Gallery Section */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-32">
+        <div className="text-center mb-16">
+          <div className="inline-block mb-4">
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-500/30">
+              <Dumbbell className="w-4 h-4 text-orange-400" />
+              <span className="text-sm font-semibold">Smart Training</span>
+            </div>
+          </div>
+          <h2 className="text-6xl md:text-7xl font-black mb-6">
+            <span className="bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
+              Train Smarter
+            </span>
+            <br />
+            Not Harder
+          </h2>
+          <p className="text-2xl text-gray-400">AI-powered workouts that adapt to your fitness level</p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          {workoutGallery.map((item, i) => (
+            <div key={i} className="relative rounded-3xl overflow-hidden group cursor-pointer h-96 border-2 border-white/10 hover:border-orange-500/50 transition-all">
+              <img 
+                src={item.img}
+                alt={item.label}
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-70 group-hover:opacity-90 transition-opacity" />
+              <div className="absolute bottom-8 left-8 right-8">
+                <div className="text-3xl font-black mb-2">{item.label}</div>
+                <div className="flex items-center gap-2 text-orange-400">
+                  <TrendingUp className="w-5 h-5" />
+                  <span className="font-semibold">AI Adaptive Program</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Lifestyle & Wellness Gallery */}
+      <div className="relative z-10 bg-gradient-to-b from-transparent via-purple-900/20 to-transparent py-32">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30">
+                <Heart className="w-4 h-4 text-purple-400" />
+                <span className="text-sm font-semibold">Complete Wellness</span>
+              </div>
+            </div>
+            <h2 className="text-6xl md:text-7xl font-black mb-6">
+              <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+                Holistic Health
+              </span>
+            </h2>
+            <p className="text-2xl text-gray-400">Mind, body, and spirit in perfect harmony</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {lifestyleImages.map((item, i) => (
+              <div key={i} className="relative rounded-3xl overflow-hidden group cursor-pointer h-[500px] border-2 border-white/10 hover:border-purple-500/50 transition-all hover:scale-105 duration-500">
+                <img 
+                  src={item.img}
+                  alt={item.label}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+                <div className="absolute bottom-8 left-8 right-8">
+                  <div className="text-3xl font-black">{item.label}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* How It Works */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-32">
+        <div className="text-center mb-20">
+          <div className="inline-block mb-4">
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/20 to-indigo-500/20 border border-blue-500/30">
+              <Calendar className="w-4 h-4 text-blue-400" />
+              <span className="text-sm font-semibold">Simple Process</span>
+            </div>
+          </div>
+          <h2 className="text-6xl md:text-7xl font-black mb-6">
+            Get Started in
+            <br />
+            <span className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">3 Simple Steps</span>
+          </h2>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-12">
+          {[
+            { 
+              num: "01", 
+              title: "Create Your Profile", 
+              desc: "Tell us about your goals, dietary preferences, fitness level, and health conditions. Our AI analyzes everything to create your perfect plan.",
+              icon: <Target className="w-8 h-8" />
+            },
+            { 
+              num: "02", 
+              title: "Get AI Recommendations", 
+              desc: "Receive instant personalized meal plans, workout routines, and health guidance tailored specifically to your unique needs.",
+              icon: <Brain className="w-8 h-8" />
+            },
+            { 
+              num: "03", 
+              title: "Track & Achieve Goals", 
+              desc: "Monitor your progress with real-time analytics, join challenges, and celebrate milestones as you transform your health.",
+              icon: <LineChart className="w-8 h-8" />
+            }
+          ].map((step, i) => (
+            <div key={i} className="relative">
+              <div className="text-9xl font-black text-white/5 absolute -top-12 left-0 pointer-events-none">
+                {step.num}
+              </div>
+              <div className="relative p-10 rounded-3xl bg-white/5 backdrop-blur-md border-2 border-white/10 hover:bg-white/10 hover:border-white/20 hover:scale-105 transition-all duration-500 group">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform">
+                  {step.icon}
+                </div>
+                <div className="text-5xl font-black text-transparent bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text mb-6">
+                  {step.num}
+                </div>
+                <h3 className="text-3xl font-bold mb-4">{step.title}</h3>
+                <p className="text-gray-400 text-lg leading-relaxed">{step.desc}</p>
+              </div>
+              {i < 2 && (
+                <div className="hidden md:block absolute top-1/2 -right-6 w-12 h-1 bg-gradient-to-r from-green-400 to-blue-500 z-10" />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
+        <div className="text-center p-24 rounded-3xl bg-gradient-to-r from-green-500 to-blue-500 relative overflow-hidden shadow-2xl">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30" />
+          
+          <div className="relative z-10">
+            <h2 className="text-6xl md:text-7xl font-black mb-8">
+              Start Your Journey Today
+            </h2>
+            <p className="text-2xl mb-10 max-w-3xl mx-auto opacity-90">
+              Join the AI health revolution and transform your life with personalized guidance
+            </p>
+            <button className="px-16 py-6 bg-white text-blue-600 rounded-2xl text-2xl font-black hover:scale-105 transition-transform shadow-2xl flex items-center gap-3 mx-auto">
+  Get Started Free
+  <ArrowRight className="w-7 h-7" />
+</button>
+</div>
+</div>
+</div>
+
+{/* Footer */}
+<footer className="relative z-10 border-t border-white/10">
+  <div className="max-w-7xl mx-auto px-6 py-16">
+    <div className="grid md:grid-cols-4 gap-10 mb-10">
+      <div>
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-blue-500 rounded-lg flex items-center justify-center">
+            <Heart className="w-6 h-6" />
+          </div>
+          <span className="text-2xl font-bold bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
+            HealthAI
+          </span>
+        </div>
+        <p className="text-gray-400">
+          AI-powered health companion for a better lifestyle.
+        </p>
+      </div>
+
+      <div>
+        <h4 className="text-xl font-bold mb-4">Features</h4>
+        <ul className="space-y-2 text-gray-400">
+          <li>AI Diet Planner</li>
+          <li>Smart Workouts</li>
+          <li>Health Chatbot</li>
+          <li>Progress Analytics</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 className="text-xl font-bold mb-4">Company</h4>
+        <ul className="space-y-2 text-gray-400">
+          <li>About</li>
+          <li>Careers</li>
+          <li>Privacy Policy</li>
+          <li>Terms & Conditions</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 className="text-xl font-bold mb-4">Contact</h4>
+        <ul className="space-y-2 text-gray-400">
+          <li>Email: support@healthai.com</li>
+          <li>Phone: +91 XXXXX XXXXX</li>
+        </ul>
+      </div>
+    </div>
+
+    <div className="text-center text-gray-500 border-t border-white/10 pt-6">
+      © 2025 HealthAI. Built with React & Tailwind CSS.
+    </div>
+  </div>
+</footer>
+</div>
+);
+};
+
+export default UltimateHealthLanding;
+
+
+
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import UltimateHealthLanding from "./pages/UltimateHealthLanding";
+import Login from "./pages/Login";
+import DietPlanner from "./pages/DietPlanner";
+import Workout from "./pages/Workout";
+import Chatbot from "./pages/Chatbot";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* 🌍 Public Landing Page */}
+        <Route path="/" element={<UltimateHealthLanding />} />
+
+        {/* 🔓 Public Auth */}
+        <Route path="/login" element={<Login />} />
+
+        {/* 🔐 Protected Features */}
+        <Route
+          path="/diet"
+          element={
+            <ProtectedRoute>
+              <DietPlanner />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/workout"
+          element={
+            <ProtectedRoute>
+              <Workout />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/chat"
+          element={
+            <ProtectedRoute>
+              <Chatbot />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+
+
+import React, { useState } from "react";
+import API from "../app/api";
+import { useNavigate } from "react-router-dom";
+
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    try {
+      const res = await API.post("/users/login", {
+        email,
+        password,
+      });
+
+      localStorage.setItem("token", res.data.access_token);
+      alert("Login success ✅");
+      navigate("/dashboard");
+    } catch (err) {
+      alert("Invalid credentials ❌");
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-slate-900 text-white">
+      <div className="p-10 rounded-2xl bg-white/10 w-96">
+        <h1 className="text-3xl font-bold mb-6">Login</h1>
+
+        <input
+          className="w-full p-3 mb-4 rounded bg-black/40"
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <input
+          className="w-full p-3 mb-4 rounded bg-black/40"
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <button
+          onClick={handleLogin}
+          className="w-full py-3 bg-green-500 rounded font-bold"
+        >
+          Login
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
+
+
+
+import { Navigate } from "react-router-dom";
+
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+};
+
+export default ProtectedRoute;
+
+
+
+import React, { useState } from "react";
+import API from "../app/api";
+
+const Chatbot = () => {
+  const [msg, setMsg] = useState("");
+  const [chat, setChat] = useState([]);
+
+  const send = async () => {
+    const res = await API.post("/ai/chat", {
+      message: msg,
+      user_id: "frontend_user",
+    });
+
+    setChat([...chat, { user: msg, bot: res.data.reply }]);
+    setMsg("");
+  };
+
+  return (
+    <div className="p-10 text-white">
+      {chat.map((c, i) => (
+        <div key={i} className="mb-4">
+          <p>🧑 {c.user}</p>
+          <p>🤖 {c.bot}</p>
+        </div>
+      ))}
+
+      <input
+        className="p-3 text-black w-80"
+        value={msg}
+        onChange={(e) => setMsg(e.target.value)}
+      />
+      <button onClick={send} className="ml-3 px-4 py-2 bg-green-500">
+        Send
+      </button>
+    </div>
+  );
+};
+
+export default Chatbot;
+
+
+import { useNavigate } from "react-router-dom";
+
+export default function Dashboard() {
+  const navigate = useNavigate();
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-slate-900 text-white">
+      <div className="bg-white/10 backdrop-blur-md p-8 rounded-2xl text-center space-y-4 w-[320px]">
+        <h1 className="text-3xl font-bold">Dashboard</h1>
+        <p className="text-gray-300">Welcome! Login successful 🎉</p>
+
+        <button
+          onClick={() => navigate("/diet")}
+          className="w-full bg-green-500 hover:bg-green-600 py-2 rounded-xl"
+        >
+          🥗 Diet Planner
+        </button>
+
+        <button
+          onClick={() => navigate("/chat")}
+          className="w-full bg-blue-500 hover:bg-blue-600 py-2 rounded-xl"
+        >
+          🤖 AI Chatbot
+        </button>
+
+        <button
+          onClick={() => navigate("/workout")}
+          className="w-full bg-purple-500 hover:bg-purple-600 py-2 rounded-xl"
+        >
+          💪 Workout Planner
+        </button>
+
+        <button
+          onClick={() => {
+            localStorage.removeItem("token");
+            navigate("/login");
+          }}
+          className="w-full bg-red-500 hover:bg-red-600 py-2 rounded-xl"
+        >
+          🚪 Logout
+        </button>
+      </div>
+    </div>
+  );
+}
+
+
+import React, { useState } from "react";
+import API from "../app/api";
+
+const DietPlanner = () => {
+  const [plan, setPlan] = useState(null);
+
+  const generateDiet = async () => {
+    const res = await API.post("/ai/diet", {
+      age: 22,
+      weight: 70,
+      height: 170,
+      gender: "male",
+      activity_level: "moderate",
+      goal: "weight_loss",
+    });
+
+    setPlan(res.data.plan);
+  };
+
+  return (
+    <div className="p-10 text-white">
+      <button
+        onClick={generateDiet}
+        className="px-6 py-3 bg-blue-500 rounded"
+      >
+        Generate Diet
+      </button>
+
+      {plan && (
+        <pre className="mt-6 bg-black/40 p-4 rounded">
+          {JSON.stringify(plan, null, 2)}
+        </pre>
+      )}
+    </div>
+  );
+};
+
+export default DietPlanner;

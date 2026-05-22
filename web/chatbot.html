@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Health Chatbot</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="container">
+  <h1>🤖 AI Health Chatbot</h1>
+
+  <button class="back-btn" onclick="goBack()">⬅ Back</button>
+
+  <div id="chat-box" style="margin-top:20px; min-height:200px;"></div>
+
+  <input type="text" id="user-input" placeholder="Ask your health question..." />
+  <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+  // 🔐 AUTH GUARD
+  if (!localStorage.getItem("token")) {
+    window.location.replace("index.html");
+  }
+
+  const API_BASE = "http://127.0.0.1:5050";
+
+  function goBack() {
+    localStorage.setItem("entry", "home");
+    window.location.replace("home.html");
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById("user-input");
+    const message = input.value.trim();
+    if (!message) return;
+
+    const chatBox = document.getElementById("chat-box");
+    chatBox.innerHTML += `<p><b>You:</b> ${message}</p>`;
+    input.value = "";
+
+    try {
+      const res = await fetch(`${API_BASE}/ai/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message })
+      });
+
+      const data = await res.json();
+      chatBox.innerHTML += `<p><b>Bot:</b> ${data.response.reply}</p>`;
+    } catch (err) {
+      chatBox.innerHTML += `<p><b>Bot:</b> Server error</p>`;
+    }
+  }
+</script>
+
+</body>
+</html>
